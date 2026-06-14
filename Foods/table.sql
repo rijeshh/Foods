@@ -4,7 +4,6 @@ CREATE TABLE foods (
 		item_category VARCHAR,
 		item_subcategory VARCHAR,
 		brand_name VARCHAR,
-		brand_name VARCHAR,
 		brand_tier VARCHAR,
 		country VARCHAR,
 		city VARCHAR,
@@ -18,8 +17,8 @@ CREATE TABLE foods (
 		sodium_mg FLOAT,
 		sugars_g FLOAT,
 		avg_rating FLOAT,
-		is_bestseller BOOL
+		is_bestseller int default 0
 );
 SELECT
 * FROM
-foods limit 10;
+foods limit 100;
