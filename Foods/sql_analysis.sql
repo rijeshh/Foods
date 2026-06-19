@@ -97,3 +97,43 @@ FROM
 ORDER BY
     sugars_g DESC
 LIMIT 10;
+
+
+------- rating distribution -----------------------
+
+
+SELECT
+    CASE
+        WHEN avg_rating < 3.0                      THEN 'Below 3.0'
+        WHEN avg_rating >= 3.0 AND avg_rating < 3.5 THEN '3.0 - 3.5'
+        WHEN avg_rating >= 3.5 AND avg_rating < 4.0 THEN '3.5 - 4.0'
+        WHEN avg_rating >= 4.0                      THEN 'Above 4.0'
+    END                                              AS rating_bucket,
+    COUNT(*)                                         AS total_items,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS pct_of_total
+FROM fast_food
+GROUP BY
+    CASE
+        WHEN avg_rating < 3.0                      THEN 'Below 3.0'
+        WHEN avg_rating >= 3.0 AND avg_rating < 3.5 THEN '3.0 - 3.5'
+        WHEN avg_rating >= 3.5 AND avg_rating < 4.0 THEN '3.5 - 4.0'
+        WHEN avg_rating >= 4.0                      THEN 'Above 4.0'
+    END
+ORDER BY MIN(avg_rating);
+
+
+------- bestseller item analysis -----------------------
+
+
+SELECT
+    item_category,
+    brand_tier,
+    item_subcategory,
+    COUNT(*)                                   AS bestseller_count,
+    ROUND(AVG(price_usd_normalized), 2)       AS avg_price,
+    ROUND(AVG(calories), 2)                   AS avg_calories,
+    ROUND(AVG(avg_rating), 2)                 AS avg_rating
+FROM fast_food
+WHERE is_bestseller = 1
+GROUP BY item_category, brand_tier, item_subcategory
+ORDER BY bestseller_count DESC;
