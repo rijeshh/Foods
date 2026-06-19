@@ -137,3 +137,19 @@ FROM fast_food
 WHERE is_bestseller = 1
 GROUP BY item_category, brand_tier, item_subcategory
 ORDER BY bestseller_count DESC;
+
+
+------- value for money analysis (rating to price ratio) -----------------------
+
+
+SELECT
+    item_name,
+    item_category,
+    brand_name,
+    country,
+    price_usd_normalized,
+    avg_rating,
+    ROUND(avg_rating / NULLIF(price_usd_normalized, 0), 3) AS value_score
+FROM fast_food
+ORDER BY value_score DESC
+LIMIT 10;
