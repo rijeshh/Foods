@@ -153,3 +153,25 @@ SELECT
 FROM fast_food
 ORDER BY value_score DESC
 LIMIT 10;
+SELECT
+    item_name,
+    item_category,
+    brand_name,
+    country,
+    price_usd_normalized,
+    avg_rating,
+    ROUND(avg_rating / NULLIF(price_usd_normalized, 0), 3) AS value_score
+FROM fast_food
+ORDER BY value_score DESC
+LIMIT 10;
+SELECT
+    item_name,
+    item_category,
+    brand_name,
+    country,
+    price_usd_normalized,
+    avg_rating,
+    ROUND(avg_rating / NULLIF(price_usd_normalized, 0), 3) AS value_score
+FROM fast_food
+ORDER BY value_score DESC
+LIMIT 10;
