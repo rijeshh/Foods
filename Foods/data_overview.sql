@@ -11,6 +11,13 @@ SELECT
 FROM 
     foods;
 
+--countries count----------
+
+SELECT 
+    COUNT(DISTINCT country) as country_count
+FROM
+    foods;
+
 ---------- countries and Unique cities counts ---------------
 
 SELECT 
